@@ -1,10 +1,13 @@
 import React from 'react'
+import Jobs from './views/jobs'
 
 const App = () => {
   return (
-    <div className='bg-red-500'>
-      <p className='text-yellow-50' >Hello Friends</p>
-    </div>
+    <>
+    <main className="w-full md:w-[1450px] mx-auto my-auto ">
+      <Jobs />
+    </main>
+    </>
   )
 }
 
