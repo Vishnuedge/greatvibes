@@ -26,7 +26,7 @@ const Navbar = () => {
     </nav>
     <div data-dial-init className="visible md:invisible fixed z-10 right-6 bottom-6 group">
         <button type="button" onClick={openJobFormModal} data-dial-toggle="speed-dial-menu-click" data-dial-trigger="click" aria-controls="speed-dial-menu-click" aria-expanded="false" className="flex items-center justify-center text-white bg-button-primary rounded-full w-14 h-14 hover:bg-button-primary dark:bg-button-primary dark:hover:bg-button-primary focus:ring-4 focus:ring-button-primary focus:outline-none dark:focus:ring-button-primary">
-            <svg aria-hidden="true" className="w-8 h-8 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            <svg aria-hidden="true" className="w-8 h-8 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
         </button>
     </div>
     <Modal isOpen = {isJobFormOpen} closeModal = {closeJobFormModal} >

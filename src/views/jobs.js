@@ -1,55 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { createJobs, deleteJob, getJob, getJobs, updateJob } from '../api/api';
+import React, { useEffect, useState } from 'react';
+import { fetchJobs } from '../actions/jobs';
 import Navbar from '../components/common/navbar';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import SkeletonCard from '../components/common/skeletonCard';
 import JobCard from '../components/job/jobCard';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const Jobs = () => {
-  const [jobs, setJobs] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const fetchJobs = async (page, limit) => {
-    try {
-      const data = await getJobs(page, limit);
-      return data;
-    } catch (error) {
-      return [];
-    }
-  };
+  const dispatch = useDispatch();
+  const { jobs, hasMore } = useSelector((state) => state.jobs);
+  const [lastPageFetched, setLastPageFetched] = useState(0);
 
   useEffect(() => {
-    setCurrentPage(1);
-    fetchJobs(1).then((data) => {
-      setJobs(data);
-      if (data.length === 0) {
-        setHasMore(false);
-      }
-    });
-  }, []);
+    dispatch(fetchJobs({ page: 1, limit: 10 }));
+    setLastPageFetched(1);
+  }, [dispatch]);
 
   const fetchNextPage = () => {
-    fetchJobs(currentPage + 1, 10).then((data) => {
-      if (data.length === 0) {
-        setHasMore(false);
-      } else {
-        setJobs((prevJobs) => [...prevJobs, ...data]);
-        setCurrentPage(currentPage + 1);
-      }
-    });
+    if (!hasMore || jobs.length % 10 !== 0) {
+      return;
+    }
+    const nextPage = lastPageFetched + 1;
+    dispatch(fetchJobs({ page: nextPage, limit: 10 }));
+    setLastPageFetched(nextPage);
   };
 
-
-  const deleteAction = async (job) => {
-    try {
-      let response = await deleteJob(job.id);
-      setJobs(jobs.filter((job) => job.id !== response.id));
-    } catch (error) {
-      console.error('Failed to delete job', error);
-    }
-  }
   return (
     <>
       <Navbar />
@@ -57,17 +33,17 @@ const Jobs = () => {
         dataLength={jobs.length}
         next={fetchNextPage}
         hasMore={hasMore}
-        loader={ 
-        <>
-          {Array.from(Array(4)).map((_, index) => (
-            <SkeletonCard key={index} />
-          ))}
-          
-        </>}
+        loader={
+          <>
+            {Array.from(Array(4)).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
+          </>
+        }
       >
         <main className="flex flex-wrap items-center justify-center bg-background gap-8 py-8">
           {jobs.map((job) => (
-            <JobCard key={job.id} job={job} deleteAction={deleteAction}  />
+            <JobCard key={job.id} job={job}  />
           ))}
         </main>
       </InfiniteScroll>
@@ -76,4 +52,3 @@ const Jobs = () => {
 };
 
 export default Jobs;
-

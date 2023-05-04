@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { createJobs, updateJob } from "../../api/api";
-
+import {  useDispatch } from 'react-redux';
+import { addJob, updateExistingJob } from "../../actions/jobs";
+import {showAlert } from '../../reducers/alert'
 const JobForm = ({ closeModal, jobData   }) => {
   const {
     register,
@@ -10,6 +11,7 @@ const JobForm = ({ closeModal, jobData   }) => {
   } = useForm({
     defaultValues: jobData
   });
+  const dispatch = useDispatch();
   const [tab, setTab] = useState(1);
   const [formData, setFormData] = useState({});
  
@@ -22,12 +24,14 @@ const JobForm = ({ closeModal, jobData   }) => {
       setFormData({ ...formData, ...data });
       try {
         if (jobData) {
-          await updateJob(jobData.id, formData);
+          dispatch(updateExistingJob({jobData : jobData, formData : formData}))
+          dispatch(showAlert('Job updated successfully', 'success'));
         } else {
-          await createJobs(formData);
+          dispatch(addJob(formData))
+          dispatch(showAlert('Job Created successfully', 'success'));
         }
       } catch (error) {
-        console.error(error);
+        console.error("Failed to delete job", error);
       }
       closeModal();
     }

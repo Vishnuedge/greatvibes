@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { getJob } from "../../api/api";
 import Modal from "../common/modal";
 import JobForm from "./jobForm";
+import {  useDispatch } from 'react-redux';
+import { deleteExistingJob } from "../../actions/jobs";
+import {  showAlert } from "../../reducers/alert";
 
-const JobCard = ({ job, deleteAction }) => {
-  
+
+const JobCard = ({ job }) => {
+  const dispatch = useDispatch();
   const [jobData, setJobData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isJobFormOpen, setJobformOpen] = useState(false);
@@ -23,6 +27,19 @@ const JobCard = ({ job, deleteAction }) => {
   const openDeleteModal = ()=> setIsOpen(true)
   const openJobFormModal = () => setJobformOpen(true)
   const closeJobFormModal = () => setJobformOpen(false)
+
+  const deleteAction = async (job) => {
+    try {
+       const response = await dispatch(deleteExistingJob(job.id));
+       if(response.meta.requestStatus === 'fulfilled') {
+         dispatch(showAlert('Job deleted successfully', 'success'));
+         closeDeleteModal();
+       }
+    } catch (error) {
+      console.error("Failed to delete job", error);
+    }
+  };
+
   
   return (
     <>
