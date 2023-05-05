@@ -8,7 +8,7 @@ const App = () => {
   const alert = useSelector((state) => state.alert);
   return (
     <>
-    <main className="w-full md:w-[1450px] mx-auto my-auto ">
+    <main className="w-full 2xl:w-[1800px] mx-auto my-auto ">
       <AlertComponent {...alert}  />
       <Jobs />
     </main>

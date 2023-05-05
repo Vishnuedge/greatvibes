@@ -30,7 +30,6 @@ export const addJob = createAsyncThunk('jobs/addJob', async (jobData, { rejectWi
 
 export const updateExistingJob = createAsyncThunk('jobs/updateExistingJob', async ({jobData, formData}, { rejectWithValue }) => {
   try {
-    console.log(jobData.id)
     const response = await updateJob(jobData.id, formData);
     return response;
   } catch (error) {

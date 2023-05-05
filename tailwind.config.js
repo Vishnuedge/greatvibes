@@ -14,7 +14,8 @@ module.exports = {
         "button-primary"  :"#1597E4D4",
         "outline"  :"#E6E6E6",
         "background" : "#D8D8D8",
-        "place-color" : "#7A7A7A"
+        "place-color" : "#7A7A7A",
+        "error" : '#D86161'
 
       }
     },

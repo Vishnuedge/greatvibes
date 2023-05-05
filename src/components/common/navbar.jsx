@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <>
     <nav>
-      <div className={` ${navbarBackground} ${flexBetween} max-w-[1500px] sticky z-30 w-full py-6`}>
+      <div className={` ${navbarBackground} ${flexBetween}  sticky z-30 w-full py-6`}>
         <div className={`${flexBetween } mx-auto w-full md:w-5/6`}>
           <div className={`${flexBetween} w-full gap-32`} >
               <p className={`${flexBetween} md:visible invisible gap-2 text-2xl font-semibold`}>GREAT <p>VIBES</p></p>
