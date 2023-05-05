@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Vishnuedge/greatvibes/static/css/main.5822ef3c.css",
+    "main.js": "/Vishnuedge/greatvibes/static/js/main.f3741b03.js",
+    "index.html": "/Vishnuedge/greatvibes/index.html",
+    "main.5822ef3c.css.map": "/Vishnuedge/greatvibes/static/css/main.5822ef3c.css.map",
+    "main.f3741b03.js.map": "/Vishnuedge/greatvibes/static/js/main.f3741b03.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5822ef3c.css",
+    "static/js/main.f3741b03.js"
+  ]
+}
