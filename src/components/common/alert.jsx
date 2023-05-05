@@ -10,11 +10,11 @@ function AlertComponent() {
   }
 
   return (
-    <>
-    <div className='mx-auto w-1/2' >
-    <Alert className='fixed top-5  right-5  w-1/2 z-50 '  severity={alert.type}>{alert.message}</Alert>
-    </div>
-    </>
+    <div className="sticky top-0 left-[95%] z-30  w-11/12 md:w-1/2 lg:w-1/3">
+    <Alert  severity={alert.type}>
+      {alert.message}
+    </Alert>
+  </div>
     
   );
 }

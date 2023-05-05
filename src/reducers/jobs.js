@@ -94,5 +94,6 @@ export const jobsSlice = createSlice({
 
 
 export const { reducer: jobsReducer } = jobsSlice;
+export const { removeJob} = jobsSlice.actions;
 
 export default jobsSlice;

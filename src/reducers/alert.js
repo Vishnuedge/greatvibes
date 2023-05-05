@@ -17,7 +17,7 @@ export const showAlert = (message, type) => (dispatch) => {
   dispatch(alertReducer.actions.showAlert({ message, type }));
   setTimeout(() => {
     dispatch(alertReducer.actions.clearAlert());
-  }, 1500);
+  }, 2000);
 };
 
 

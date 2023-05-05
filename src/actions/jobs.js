@@ -19,18 +19,18 @@ export const fetchJobById = createAsyncThunk('jobs/fetchJobById', async (jobId, 
   }
 });
 
-export const addJob = createAsyncThunk('jobs/addJob', async (jobData, { rejectWithValue }) => {
+export const addJob = createAsyncThunk('jobs/addJob', async (data, { rejectWithValue }) => {
   try {
-    const response = await createJobs(jobData);
+    const response = await createJobs(data);
     return response;
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
 });
 
-export const updateExistingJob = createAsyncThunk('jobs/updateExistingJob', async ({jobData, formData}, { rejectWithValue }) => {
+export const updateExistingJob = createAsyncThunk('jobs/updateExistingJob', async ({jobData, data}, { rejectWithValue }) => {
   try {
-    const response = await updateJob(jobData.id, formData);
+    const response = await updateJob(jobData.id, data);
     return response;
   } catch (error) {
     return rejectWithValue(error);

@@ -5,8 +5,6 @@ import JobForm from "./jobForm";
 import { useDispatch } from "react-redux";
 import { deleteExistingJob } from "../../actions/jobs";
 import { showAlert } from "../../reducers/alert";
-
-
 const JobCard = ({ job }) => {
   const dispatch = useDispatch();
   const [jobData, setJobData] = useState([]);
@@ -20,7 +18,7 @@ const JobCard = ({ job }) => {
     } catch (error) {
       return error;
     }
-    openJobFormModal();
+    openJobFormModal();    
   };
   const closeDeleteModal = () => setIsOpen(false);
   const openDeleteModal = () => setIsOpen(true);
@@ -29,13 +27,13 @@ const JobCard = ({ job }) => {
 
   const deleteAction = async (job) => {
     try {
-      const response =  dispatch(deleteExistingJob(job.id));
+      const response = await dispatch(deleteExistingJob(job.id));
       if (response.meta.requestStatus === "fulfilled") {
-        dispatch(showAlert("Job deleted successfully", "success"));
+        dispatch(showAlert("Job deleted successfully", "error"));
         closeDeleteModal();
       }
     } catch (error) {
-      console.error("Failed to delete job", error);
+      dispatch(showAlert("Deleting Job Failed", "error"));
     }
   };
 
@@ -43,7 +41,7 @@ const JobCard = ({ job }) => {
   return (
     <>
       <main>
-        <section className="relative capitalize rounded-lg bg-white w-ful md:w-[630px] 2xl:w-[830px] h-auto border-background px-6 py-4">
+        <section className="relative capitalize rounded-lg bg-white  md:w-[630px] 2xl:w-[830px] h-auto border-background px-6 py-4">
           <button
             type="button"
             className="absolute top-4 right-4"
@@ -132,9 +130,6 @@ const JobCard = ({ job }) => {
               </p>
               <p className="text-light">{job.location} ({job.remoteType})</p>
             </article>
-
-            {/*  */}
-            {/*  */}
           </aside>
           </div>
           <div className="md:flex md:gap-3" >
@@ -150,9 +145,9 @@ const JobCard = ({ job }) => {
                 INR (₹) {job.minSalary} - {job.maxSalary} / Month
               </p>
               <p>{job.totalEmployee} employees</p>
-              <article className="">
-              {job.quickApply ? (
-                <button className="py-2 mt-6 px-4 text-sm bg-button-primary rounded-md text-white inline-block hover:bg-opacity-40">
+              <article >
+              {job.option == 'quickApply' ? (
+                <button className="py-2 mt-6 px-4 text-sm border-[1px] border-button-primary bg-button-primary rounded-md text-white inline-block hover:bg-opacity-40">
                   Apply Now
                 </button>
               ) : (
@@ -164,11 +159,6 @@ const JobCard = ({ job }) => {
             </article>
            
           </div>
-          {/*  */}
-        
-
-            
-          {/*  */}
         </section>
       </main>
     </>
