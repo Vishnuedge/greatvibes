@@ -5,8 +5,7 @@ import SkeletonCard from '../components/common/skeletonCard';
 import JobCard from '../components/job/jobCard';
 import { useSelector, useDispatch } from 'react-redux';
 
-
-const Jobs = ({openJobFormModal}) => {
+const Jobs = ({handleModalOpen}) => {
   const dispatch = useDispatch();
   const { jobs, hasMore } = useSelector((state) => state.jobs);
   const [lastPageFetched, setLastPageFetched] = useState(0);
@@ -33,9 +32,7 @@ const Jobs = ({openJobFormModal}) => {
         hasMore={hasMore}
         loader={
           <>
-            {Array.from(Array(4)).map((_, index) => (
-              <SkeletonCard key={index} />
-            ))}
+              <SkeletonCard  />
           </>
         }
       >
@@ -49,7 +46,7 @@ const Jobs = ({openJobFormModal}) => {
       <div data-dial-init className="visible md:invisible group fixed bottom-0 right-0 mb-4 mr-4">
   <button
     type="button"
-    onClick={openJobFormModal}
+    onClick={handleModalOpen}
     data-dial-toggle="speed-dial-menu-click"
     data-dial-trigger="click"
     aria-controls="speed-dial-menu-click"

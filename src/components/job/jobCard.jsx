@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import { getJob } from "../../api/api";
 import Modal from "../common/modal";
 import JobForm from "./jobForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteExistingJob } from "../../actions/jobs";
 import { showAlert } from "../../reducers/alert";
+
 const JobCard = ({ job }) => {
   const dispatch = useDispatch();
   const [jobData, setJobData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isJobFormOpen, setJobformOpen] = useState(false);
+
+  
+
   const triggerDeleteModal = () => openDeleteModal();
+
   const triggerEditModal = async (jobId) => {
     try {
       const response = await getJob(jobId);
@@ -24,6 +29,8 @@ const JobCard = ({ job }) => {
   const openDeleteModal = () => setIsOpen(true);
   const openJobFormModal = () => setJobformOpen(true);
   const closeJobFormModal = () => setJobformOpen(false);
+
+
 
   const deleteAction = async (job) => {
     try {
@@ -118,8 +125,8 @@ const JobCard = ({ job }) => {
                 </div>
               </div>
             </Modal>
-            <Modal isOpen={isJobFormOpen} closeModal={closeJobFormModal}>
-              <JobForm closeModal={closeJobFormModal} jobData={jobData} />
+            <Modal isOpen={isJobFormOpen} closeModal={openJobFormModal}>
+              <JobForm jobData= {jobData} closeModal={closeJobFormModal}  />
             </Modal>
           </aside>
           <aside className="font-light ">

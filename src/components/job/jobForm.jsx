@@ -4,7 +4,7 @@ import {  useDispatch } from 'react-redux';
 import { addJob, updateExistingJob } from "../../actions/jobs";
 import {showAlert } from '../../reducers/alert'
 
-const JobForm = ({ closeModal, jobData  }) => {
+const JobForm = ({  jobData, closeModal  }) => {
   const {
     register,
     handleSubmit,
@@ -119,7 +119,8 @@ const JobForm = ({ closeModal, jobData  }) => {
               </aside>
             </section>
           </section>
-          <section className="flex justify-end mt-24">
+          <section className="flex justify-end mt-24 gap-10">
+        <button type='button' onClick={closeModal} className="bg-button-primary text-white px-8 py-2 rounded-md">Close</button>
             <button
               className="bg-button-primary text-white px-8 py-2 rounded-md"
               type="button"
@@ -135,7 +136,6 @@ const JobForm = ({ closeModal, jobData  }) => {
   const renderStepTwo = () => {
     let inputStyle = 'text-sm  mb-2 focus:outline-none indent-1.5 placeholder:text-place-color placeholder:text-sm border-[1px] w-full rounded-md h-9'
     let errorStyle = 'text-error text-xs lg:text-sm'
-    let checkboxStyle = 'appearance-none rounded-full border-2 border-gray-400 w-4 h-4 checked:bg-blue-400 checked:border-spacing-2 focus:outline-none'
 
     return (
       <main className="md:min-h-[500px]" >
@@ -234,8 +234,9 @@ const JobForm = ({ closeModal, jobData  }) => {
         {errors.option && (
                     <p className={errorStyle}>Atleast Select One Option</p>
           )}
-        <section className='flex justify-end mt-24'>
-          <button type='submit' className="inline-flex justify-center rounded-md border border-transparent bg-button-primary px-4 py-2 text-sm font-medium text-white">Save</button>
+        <section className='flex justify-end mt-24 gap-10'>
+        <button type='button' onClick={closeModal} className="bg-button-primary text-white px-8 py-2 rounded-md">Close</button>
+          <button type='submit' className="bg-button-primary text-white px-8 py-2 rounded-md">Save</button>
           </section>
         </form>
       </main>

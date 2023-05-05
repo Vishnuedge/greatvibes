@@ -10,7 +10,7 @@ function AlertComponent() {
   }
 
   return (
-    <div className="sticky top-0 left-[95%] z-30  w-11/12 md:w-1/2 lg:w-1/3">
+    <div className="fixed top-20 right-2 z-30  w-11/12 md:w-1/2 lg:w-1/3">
     <Alert  severity={alert.type}>
       {alert.message}
     </Alert>

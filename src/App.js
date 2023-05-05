@@ -1,25 +1,28 @@
 import React, {useState} from 'react'
 import Jobs from './views/jobs'
 import AlertComponent from './components/common/alert'
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import Navbar from './components/common/navbar';
+import { closeModal, openModal } from './reducers/modal';
 
 
 const App = () => {
+  const dispatch = useDispatch()
   const alert = useSelector((state) => state.alert);
-  const [isJobFormOpen, setJobformOpen] = useState(false);
-  const openJobFormModal = () => setJobformOpen(true);
-  const closeJobFormModal = () => setJobformOpen(false);
+  const isModalOpen =  useSelector((state) => state.modal.isOpen);
+  const handleModalOpen = () => dispatch(openModal())
+  const handleModalClose = () => dispatch(closeModal())
   
 
   return (
     <>
-    <main className="w-full 2xl:w-[1800px] mx-auto my-auto ">
+   
+      <main className="w-full 2xl:w-[1800px] mx-auto my-auto ">
       <div className='sticky top-0 z-30 shadow-lg w-full py-4 bg-black drop-shadow text-white'>
-      <Navbar isJobFormOpen = {isJobFormOpen} closeJobFormModal = {closeJobFormModal} openJobFormModal = {openJobFormModal}  />
+      <Navbar isModalOpen={isModalOpen} handleModalClose ={ handleModalClose} handleModalOpen={handleModalOpen} />
       </div>
       <AlertComponent {...alert}  />
-      <Jobs openJobFormModal={openJobFormModal} />
+      <Jobs  handleModalOpen ={handleModalOpen} />
     </main>
     </>
   )
