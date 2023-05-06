@@ -37,7 +37,7 @@ const Jobs = ({handleModalOpen}) => {
           </>
         }
       >
-      <main className=" flex flex-wrap items-center justify-center bg-background gap-8 py-8 ">
+      <main className=" flex flex-wrap items-center justify-center bg-background gap-8 py-8 px-6 ">
           {memoizedJobs}
       </main>
       </InfiniteScroll>
