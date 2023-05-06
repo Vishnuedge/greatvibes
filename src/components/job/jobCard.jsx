@@ -5,7 +5,7 @@ import JobForm from "./jobForm";
 import { useDispatch } from "react-redux";
 import { deleteExistingJob } from "../../actions/jobs";
 import { showAlert } from "../../reducers/alert";
-import { jobPostedFailed, jobPostedSuccess } from "../../constants/error";
+import { jobDeleteFailed, jobDeleteSuccess } from "../../constants/error";
 
 const JobCard = ({ job }) => {
   const dispatch = useDispatch();
@@ -37,11 +37,11 @@ const JobCard = ({ job }) => {
     try {
       const response = await dispatch(deleteExistingJob(job.id));
       if (response.meta.requestStatus === "fulfilled") {
-        dispatch(showAlert(jobPostedSuccess.message, jobPostedSuccess.alert));
+        dispatch(showAlert(jobDeleteSuccess.message, jobDeleteSuccess.alert));
         closeDeleteModal();
       }
     } catch (error) {
-      dispatch(showAlert(jobPostedFailed.message, jobPostedFailed.alert));
+      dispatch(showAlert(jobDeleteFailed.message, jobDeleteFailed.alert));
     }
   };
 

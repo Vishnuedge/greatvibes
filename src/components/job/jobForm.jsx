@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {  useDispatch } from 'react-redux';
 import { addJob, updateExistingJob } from "../../actions/jobs";
+import { jobEditSuccess, jobPostedFailed, jobPostedSuccess } from "../../constants/error";
 import {showAlert } from '../../reducers/alert'
 
 const JobForm = ({  jobData, closeModal  }) => {
@@ -30,14 +31,14 @@ const JobForm = ({  jobData, closeModal  }) => {
       try {
         if (jobData) {
            dispatch(updateExistingJob({jobData : jobData,  data}))
-           dispatch(showAlert('Job updated successfully', 'warning'));
+           dispatch(showAlert(jobEditSuccess.message, jobEditSuccess.alert));
           }
          else {
             dispatch(addJob(data))
-            dispatch(showAlert('Job Created successfully', 'success'));
+            dispatch(showAlert(jobPostedSuccess.message, jobPostedSuccess.message));
         }
       } catch (error) {
-        dispatch(showAlert('Failed To Create Job', 'error'));
+        dispatch(showAlert(jobPostedFailed.message, jobPostedFailed.alert));
       }
       closeModal();
     }
