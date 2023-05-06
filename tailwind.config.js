@@ -17,11 +17,11 @@ module.exports = {
         "background" : "#D8D8D8",
         "place-color" : "#7A7A7A",
         "error" : '#D86161'
-
       }
     },
     container: {
       center: true,
+   
     },
   },
   plugins: [],

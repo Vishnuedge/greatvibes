@@ -17,7 +17,7 @@ const App = () => {
   return (
     <>
    
-      <main className="w-full md:w-[1500px] mx-auto my-auto ">
+      <main className="w-full 2xl:max-w-[1600px] mx-auto my-auto ">
       <div className='sticky top-0 z-30 shadow-lg w-full py-4 bg-black drop-shadow text-white'>
       <Navbar isModalOpen={isModalOpen} handleModalClose ={ handleModalClose} handleModalOpen={handleModalOpen} />
       </div>

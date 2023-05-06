@@ -49,7 +49,7 @@ const JobCard = ({ job }) => {
   return (
     <>
       <main>
-        <section className="relative capitalize rounded-lg bg-white  md:w-[630px] h-auto border-background py-4 px-4 sm:px-8">
+        <section className="relative capitalize rounded-lg bg-white  md:w-[630px] h-auto border-background px-6 py-4 ">
           <button
             type="button"
             className="absolute top-4 right-4"
