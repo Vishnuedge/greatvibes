@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Vishnuedge/greatvibes/static/css/main.785b484d.css",
-    "main.js": "/Vishnuedge/greatvibes/static/js/main.01afa8d0.js",
+    "main.css": "/Vishnuedge/greatvibes/static/css/main.fccf5028.css",
+    "main.js": "/Vishnuedge/greatvibes/static/js/main.42a7e709.js",
     "index.html": "/Vishnuedge/greatvibes/index.html",
-    "main.785b484d.css.map": "/Vishnuedge/greatvibes/static/css/main.785b484d.css.map",
-    "main.01afa8d0.js.map": "/Vishnuedge/greatvibes/static/js/main.01afa8d0.js.map"
+    "main.fccf5028.css.map": "/Vishnuedge/greatvibes/static/css/main.fccf5028.css.map",
+    "main.42a7e709.js.map": "/Vishnuedge/greatvibes/static/js/main.42a7e709.js.map"
   },
   "entrypoints": [
-    "static/css/main.785b484d.css",
-    "static/js/main.01afa8d0.js"
+    "static/css/main.fccf5028.css",
+    "static/js/main.42a7e709.js"
   ]
 }
