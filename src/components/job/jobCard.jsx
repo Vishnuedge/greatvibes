@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { getJob } from "../../api/api";
 import Modal from "../common/modal";
 import JobForm from "./jobForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteExistingJob } from "../../actions/jobs";
 import { showAlert } from "../../reducers/alert";
+import { jobPostedFailed, jobPostedSuccess } from "../../constants/error";
 
 const JobCard = ({ job }) => {
   const dispatch = useDispatch();
   const [jobData, setJobData] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isJobFormOpen, setJobformOpen] = useState(false);
-
-  
 
   const triggerDeleteModal = () => openDeleteModal();
 
@@ -25,10 +24,12 @@ const JobCard = ({ job }) => {
     }
     openJobFormModal();    
   };
-  const closeDeleteModal = () => setIsOpen(false);
-  const openDeleteModal = () => setIsOpen(true);
-  const openJobFormModal = () => setJobformOpen(true);
-  const closeJobFormModal = () => setJobformOpen(false);
+
+  const closeDeleteModal = useCallback(() => setIsOpen(false), []);
+  const openDeleteModal = useCallback(() => setIsOpen(true), []);
+  const openJobFormModal = useCallback(() => setJobformOpen(true), []);
+  const closeJobFormModal = useCallback(() => setJobformOpen(false), []);
+
 
 
 
@@ -36,11 +37,11 @@ const JobCard = ({ job }) => {
     try {
       const response = await dispatch(deleteExistingJob(job.id));
       if (response.meta.requestStatus === "fulfilled") {
-        dispatch(showAlert("Job deleted successfully", "error"));
+        dispatch(showAlert(jobPostedSuccess.message, jobPostedSuccess.alert));
         closeDeleteModal();
       }
     } catch (error) {
-      dispatch(showAlert("Deleting Job Failed", "error"));
+      dispatch(showAlert(jobPostedFailed.message, jobPostedFailed.alert));
     }
   };
 
@@ -48,7 +49,7 @@ const JobCard = ({ job }) => {
   return (
     <>
       <main>
-        <section className="relative capitalize rounded-lg bg-white  md:w-[630px] 2xl:w-[830px] h-auto border-background px-6 py-4">
+        <section className="relative capitalize rounded-lg bg-white  md:w-[630px] h-auto border-background px-6 py-4">
           <button
             type="button"
             className="absolute top-4 right-4"
@@ -153,7 +154,7 @@ const JobCard = ({ job }) => {
               </p>
               <p>{job.totalEmployee} employees</p>
               <article >
-              {job.option == 'quickApply' ? (
+              {job.option === 'quickApply' ? (
                 <button className="py-2 mt-6 px-4 text-sm border-[1px] border-button-primary bg-button-primary rounded-md text-white inline-block hover:bg-opacity-40">
                   Apply Now
                 </button>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Jobs from './views/jobs'
 import AlertComponent from './components/common/alert'
 import {  useDispatch, useSelector } from 'react-redux';

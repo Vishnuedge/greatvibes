@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo,useCallback } from 'react';
 import { fetchJobs } from '../actions/jobs';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import SkeletonCard from '../components/common/skeletonCard';
@@ -15,15 +15,16 @@ const Jobs = ({handleModalOpen}) => {
     setLastPageFetched(1);
   }, [dispatch]);
 
-  const fetchNextPage = () => {
+  const fetchNextPage = useCallback(() => {
     if (!hasMore || jobs.length % 10 !== 0) {
       return;
     }
     const nextPage = lastPageFetched + 1;
     dispatch(fetchJobs({ page: nextPage, limit: 10 }));
     setLastPageFetched(nextPage);
-  };
+  },[dispatch, hasMore, jobs.length, lastPageFetched]);
 
+  const memoizedJobs = useMemo(() => jobs.map((job) => <JobCard key={job.id} job={job} />), [jobs]);
   return (
     <>
       <InfiniteScroll
@@ -36,14 +37,12 @@ const Jobs = ({handleModalOpen}) => {
           </>
         }
       >
-        <main className="flex flex-wrap items-center justify-center bg-background gap-8 py-8 px-4 sm:px-8 ">
-          {jobs.map((job) => (
-            <JobCard key={job.id} job={job}  />
-          ))}
-        </main>
+      <main className=" flex flex-wrap items-center justify-center bg-background gap-8 py-8 ">
+          {memoizedJobs}
+      </main>
       </InfiniteScroll>
 
-      <div data-dial-init className="visible md:invisible group fixed bottom-0 right-0 mb-4 mr-4">
+  <div data-dial-init className="visible md:invisible group fixed bottom-0 right-0 mb-4 mr-4">
   <button
     type="button"
     onClick={handleModalOpen}
@@ -61,4 +60,4 @@ const Jobs = ({handleModalOpen}) => {
   );
 };
 
-export default Jobs;
+export default React.memo(Jobs);

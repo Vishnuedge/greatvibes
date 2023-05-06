@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
@@ -18,6 +19,9 @@ module.exports = {
         "error" : '#D86161'
 
       }
+    },
+    container: {
+      center: true,
     },
   },
   plugins: [],
