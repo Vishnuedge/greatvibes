@@ -1,11 +1,15 @@
-import React, { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react';
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 
 const Modal = ({ isOpen, closeModal, children }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="fixed inset-0 z-50 overflow-y-auto" onClose={closeModal}>
+        <Dialog
+          as="div"
+          className="fixed inset-0 z-50 overflow-y-auto"
+          onClose={closeModal}
+        >
           <div className="min-h-screen px-4 text-center">
             <Transition.Child
               as={Fragment}

@@ -22,34 +22,40 @@ const JobCard = ({ job }) => {
     } catch (error) {
       return error;
     }
-    openJobFormModal();    
+    openJobFormModal();
   };
 
-  const closeDeleteModal = useCallback(() => setIsOpen(false), []);
-  const openDeleteModal = useCallback(() => setIsOpen(true), []);
-  const openJobFormModal = useCallback(() => setJobformOpen(true), []);
-  const closeJobFormModal = useCallback(() => setJobformOpen(false), []);
+  const closeDeleteModal = () => setIsOpen(false);
+  const openDeleteModal = () => setIsOpen(true);
+  const openJobFormModal = () => setJobformOpen(true);
+  const closeJobFormModal = () => setJobformOpen(false);
 
-
-
-
-  const deleteAction = async (job) => {
-    try {
-      const response = await dispatch(deleteExistingJob(job.id));
-      if (response.meta.requestStatus === "fulfilled") {
-        dispatch(showAlert(jobDeleteSuccess.message, jobDeleteSuccess.alert));
-        closeDeleteModal();
+  const deleteAction = useCallback(
+    async (job) => {
+      try {
+        const response = await dispatch(deleteExistingJob(job.id));
+        if (response.meta.requestStatus === "fulfilled") {
+          dispatch(showAlert(jobDeleteSuccess.message, jobDeleteSuccess.alert));
+          closeDeleteModal();
+        }
+      } catch (error) {
+        dispatch(showAlert(jobDeleteFailed.message, jobDeleteFailed.alert));
       }
-    } catch (error) {
-      dispatch(showAlert(jobDeleteFailed.message, jobDeleteFailed.alert));
-    }
-  };
+    },
+    [dispatch]
+  );
 
-
+  let deleteModalButtonStyle =
+    "inline-flex justify-center px-4 py-2 text-sm font-medium rounded-md focus-visible:ring-2 focus-visible:ring-offset-2";
+  let cardButtonStyle =
+    "py-2 mt-6 px-4 text-sm border-[1px] border-button-primary rounded-md inline-block";
+  let cardWidth = "xs:w-[295px]  md:w-[630px]";
   return (
     <>
       <main>
-        <section className="relative capitalize rounded-lg bg-white  md:w-[630px] h-auto border-background px-6 py-4 ">
+        <section
+          className={`${cardWidth} relative capitalize rounded-lg bg-white h-auto border-background px-6 py-4`}
+        >
           <button
             type="button"
             className="absolute top-4 right-4"
@@ -61,7 +67,7 @@ const JobCard = ({ job }) => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              class="w-4 h-4 transform transition-transform duration-500 hover:rotate-45"
+              className="w-4 h-4 transform transition-transform duration-500 hover:rotate-45"
             >
               <path
                 strokeLinecap="round"
@@ -90,82 +96,85 @@ const JobCard = ({ job }) => {
               />
             </svg>
           </button>
-          <div className="flex gap-3" >
-          <aside className="flex self-start">
-            <img
-              src="https://cdn.vox-cdn.com/thumbor/sW5h16et1R3au8ZLVjkcAbcXNi8=/0x0:3151x2048/2000x1333/filters:focal(1575x1024:1576x1025)/cdn.vox-cdn.com/uploads/chorus_asset/file/15844974/netflixlogo.0.0.1466448626.png"
-              alt="Company Logo"
-              className="w-12 h-12 rounded-md"
-            />
-            <Modal isOpen={isOpen} closeModal={closeDeleteModal}>
-              <div>
-                <h3 class="text-lg font-medium leading-6 text-gray-900">
-                  Delete Job
-                </h3>
-                <div class="mt-2">
-                  <p class="text-sm text-gray-500">
-                    Are you sure you want to delete this job?
-                  </p>
-                </div>
+          <div className="flex gap-3">
+            <aside className="flex self-start">
+              <img
+                src="https://cdn.vox-cdn.com/thumbor/sW5h16et1R3au8ZLVjkcAbcXNi8=/0x0:3151x2048/2000x1333/filters:focal(1575x1024:1576x1025)/cdn.vox-cdn.com/uploads/chorus_asset/file/15844974/netflixlogo.0.0.1466448626.png"
+                alt="Company Logo"
+                className="w-12 h-12 rounded-md"
+              />
+              <Modal isOpen={isOpen} closeModal={closeDeleteModal}>
+                <div>
+                  <h3 className="text-lg font-medium leading-6 text-gray-900">
+                    Delete Job
+                  </h3>
+                  <div className="mt-2">
+                    <p className="text-sm text-gray-500">
+                      Are you sure you want to delete this job?
+                    </p>
+                  </div>
 
-                <div class="mt-4 gap-4 flex">
-                  <button
-                    type="button"
-                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500"
-                    onClick={() => deleteAction(job)}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    type="button"
-                    onClick={closeDeleteModal}
-                    class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500"
-                  >
-                    Cancel
-                  </button>
+                  <div className="mt-4 gap-4 flex">
+                    <button
+                      type="button"
+                      className={`${deleteModalButtonStyle} text-white border border-transparent  hover:bg-red-700 focus:outline-none  focus-visible:ring-red-500 bg-red-600`}
+                      onClick={() => deleteAction(job)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeDeleteModal}
+                      className={` ${deleteModalButtonStyle}text-gray-700 border border-gray-300  hover:bg-gray-50 focus:outline-none  focus-visible:ring-gray-500`}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </Modal>
-            <Modal isOpen={isJobFormOpen} closeModal={openJobFormModal}>
-              <JobForm jobData= {jobData} closeModal={closeJobFormModal}  />
-            </Modal>
-          </aside>
-          <aside className="font-light ">
-            <article className="mb-5 text-dark lg:text-sm 2xl:text-base">
-              <p className="text-xl 2xl:text-2xl">{job.jobTitle}</p>
-              <p>
-                {job.companyName} - {job.industry}
-              </p>
-              <p className="text-light">{job.location} ({job.remoteType})</p>
-            </article>
-          </aside>
+              </Modal>
+              <Modal isOpen={isJobFormOpen} closeModal={openJobFormModal}>
+                <JobForm jobData={jobData} closeModal={closeJobFormModal} />
+              </Modal>
+            </aside>
+            <aside className="font-light ">
+              <article className="mb-5 text-dark lg:text-sm 2xl:text-base">
+                <p className="text-xl 2xl:text-2xl">{job.jobTitle}</p>
+                <p>
+                  {job.companyName} - {job.industry}
+                </p>
+                <p className="text-light">
+                  {job.location} ({job.remoteType})
+                </p>
+              </article>
+            </aside>
           </div>
-          <div className="md:flex md:gap-3" >
-            <div className="w-0 md:w-12 md:visible invisible">
-            </div>
+          <div className="md:flex md:gap-3">
+            <div className="w-0 md:w-12 md:visible invisible"></div>
             <article className="mb-5 lg:text-sm 2xl:text-base text-dark">
               <p className="mb-2">{job.remoteType} (9.00 am - 5.00 pm IST) </p>
               <p className="mb-2">
-                
                 Experience ({job.minExperience} - {job.maxExperience} years)
               </p>
               <p className="mb-2">
                 INR (₹) {job.minSalary} - {job.maxSalary} / Month
               </p>
               <p>{job.totalEmployee} employees</p>
-              <article >
-              {job.option === 'quickApply' ? (
-                <button className="py-2 mt-6 px-4 text-sm border-[1px] border-button-primary bg-button-primary rounded-md text-white inline-block hover:bg-opacity-40">
-                  Apply Now
-                </button>
-              ) : (
-                <button className="py-2 mt-6 px-4 text-sm border-[1px] border-button-primary rounded-md text-button-primary inline-block hover:text-opacity-80">
-                  External Apply
-                </button>
-              )}
+              <article>
+                {job.option === "quickApply" ? (
+                  <button
+                    className={` ${cardButtonStyle} bg-button-primary  text-white  `}
+                  >
+                    Apply Now
+                  </button>
+                ) : (
+                  <button
+                    className={` ${cardButtonStyle} text-button-primary `}
+                  >
+                    External Apply
+                  </button>
+                )}
+              </article>
             </article>
-            </article>
-           
           </div>
         </section>
       </main>

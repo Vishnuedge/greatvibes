@@ -11,8 +11,8 @@ const initialState = {
   job: null,
   isLoading: false,
   error: null,
-  currentPage: 1, 
-  hasMore: true 
+  currentPage: 1,
+  hasMore: true,
 };
 
 export const jobsSlice = createSlice({
@@ -31,7 +31,7 @@ export const jobsSlice = createSlice({
         state.currentPage = state.currentPage + 1;
         state.hasMore = action.payload.length === 10;
       })
-      
+
       .addCase(fetchJobs.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
@@ -92,8 +92,7 @@ export const jobsSlice = createSlice({
   },
 });
 
-
 export const { reducer: jobsReducer } = jobsSlice;
-export const { removeJob} = jobsSlice.actions;
+export const { removeJob } = jobsSlice.actions;
 
 export default jobsSlice;

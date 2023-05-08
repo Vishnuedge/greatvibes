@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const alertReducer = createSlice({
-  name: 'alert',
+  name: "alert",
   initialState: null,
   reducers: {
     showAlert(state, action) {
@@ -19,6 +19,5 @@ export const showAlert = (message, type) => (dispatch) => {
     dispatch(alertReducer.actions.clearAlert());
   }, 2000);
 };
-
 
 export default alertReducer.reducer;
